@@ -1,11 +1,33 @@
+const fs = require('fs');
+const path = require('path'); 
 const readline = require('readline');
 const { stdin: input, stdout: output } = require('process');
+const stream = fs.WriteStream((path.join(__dirname, 'text.txt')));
 const rl = readline.createInterface({ input, output });
 
-const fs = require('fs');
-const path = require('path');
-// const process = require('process');
-const filePath = path.join(__dirname, 'text.txt');
+function writeText(){
+  rl.question('Что вы хотите сказать? ', function(answer) {
+    stream.write(`${answer}`);
+    addText();
+  });
+}
+writeText();
+
+function addText(){
+  rl.question('Что-то еще? ', function(answer) {
+    stream.write(`\n${answer}`);
+    addText();
+  });
+}
+
+
+function finish(){
+  process.on('exit', () => {
+    console.log('Спасибо');
+  });
+}
+finish();
+
 
 
 // rl.question('Что вы хотите сказать? ', function(answer) {
@@ -19,31 +41,4 @@ const filePath = path.join(__dirname, 'text.txt');
 //   addFile(info);
 //   console.log('Спасибо за информацию');
 //   // rl.close();
-// });
-
-
-// function createFile(ans){
-//   fs.writeFile(filePath, `${ans}\n`, (err) => {
-//     if(err) {
-//       throw err;
-//     }
-//   });
-// }
-// function addFile(ans){
-//   fs.appendFile(filePath, `${ans}\n`, (err) => {
-//     if(err) {
-//       throw err;
-//     }
-//   });
-// }
-
-// fs.appendFile(filePath, '\nAdd', (err) => {
-//   if(err) {
-//     throw err;
-//   }
-//   console.log('Файл создан2');
-// });
-
-// rl.on('close', () => {
-//   console.log('До скорого');
 // });
