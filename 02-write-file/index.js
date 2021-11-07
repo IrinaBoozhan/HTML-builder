@@ -7,26 +7,31 @@ const rl = readline.createInterface({ input, output });
 
 function writeText(){
   rl.question('Что вы хотите сказать? ', function(answer) {
-    stream.write(`${answer}`);
-    addText();
+    if(answer === 'exit') {
+      rl.close();
+      // console.log('Спасибо');
+    } else{
+      stream.write(`${answer}`);
+      addText();
+    }
   });
 }
 writeText();
 
 function addText(){
   rl.question('Что-то еще? ', function(answer) {
-    stream.write(`\n${answer}`);
-    addText();
-  });
-}
+    if(answer === 'exit') {
+      rl.close();
+      // console.log('Спасибо');
+    } else{stream.write(`\n${answer}`);
+      addText();
+}})}
 
 
-function finish(){
-  process.on('exit', () => {
-    console.log('Спасибо');
-  });
-}
-finish();
+process.on('exit', () => {
+  console.log('Спасибо');
+});
+
 
 
 
