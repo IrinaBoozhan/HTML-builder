@@ -10,10 +10,11 @@ fs.readdir(filePath, (err, data) => {
     let currentPath = path.join(filePath, `${data[i]}`);
     let ext = path.extname(currentPath);
     let name = path.basename(`${data[i]}`, ext);
+    ext = ext.slice(1); 
     fs.stat(currentPath, (err, stats) => {
       if (err) throw err;
       if(stats.isFile()){
-        console.log(name + ' --- ' + ext + ' --- ' + stats.size / 1024 + ' KB'); 
+        console.log(name + ' --- ' + ext + ' --- ' + stats.size / 1024 + ' kb'); 
       }
     });
   }
