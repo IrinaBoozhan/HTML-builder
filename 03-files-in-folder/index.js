@@ -8,10 +8,12 @@ fs.readdir(filePath, (err, data) => {
   length = data.length;
   for (let i = 0; i < length; i++) {
     let currentPath = path.join(filePath, `${data[i]}`);
+    let ext = path.extname(currentPath);
+    let name = path.basename(`${data[i]}`, ext);
     fs.stat(currentPath, (err, stats) => {
       if (err) throw err;
       if(stats.isFile()){
-        console.log(`${data[i]}`+' имеет размер '+stats.size/1024+' KB');
+        console.log(name + ' --- ' + ext + ' --- ' + stats.size / 1024 + ' KB'); 
       }
     });
   }
